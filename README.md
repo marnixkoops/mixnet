@@ -1,2 +1,2 @@
 # mixnet
-Finite mixture regression modeling with regularization for component-specific continuous variable selection
+Mixture modeling with regularization for component-specific continuous variable selection
