@@ -1,7 +1,5 @@
-mixnet = 
-  function (formula = . ~ ., family = c("gaussian", "binomial", 
-                                        "poisson"), adaptive = TRUE, select = TRUE, offset = NULL, 
-            ...) 
+mixnet <- function (formula = . ~ ., family = c("gaussian", "binomial", "poisson"), 
+                    adaptive = TRUE, select = TRUE, offset = NULL, ...) 
   {
     family <- match.arg(family)
     z <- FLXMRglm(formula = formula, family = family)
@@ -34,20 +32,17 @@ mixnet =
           select <- which(!select)
           penalty[select] <- 0
         }
-        m <- glmnet::cv.glmnet(x[, -1, drop = FALSE], y, 
-                               family = family, weights = w, penalty.factor = penalty, 
-                               ...)
+        m <- glmnet::cv.glmnet(x[, -1, drop = FALSE], y, family = family, 
+                               weights = w, penalty.factor = penalty, ...)
         coef <- as.vector(coef(m, s = "lambda.min"))
       }
       df <- sum(coef != 0)
       sigma <- if (family == "gaussian") 
-        sqrt(sum(w * (y - x %*% coef)^2/mean(w))/(nrow(x) - 
-                                                    df))
+        sqrt(sum(w * (y - x %*% coef)^2/mean(w))/(nrow(x) - df))
       else NULL
-      comp <- z@defineComponent(list(coef = coef, sigma = sigma,
+      comp <- z@defineComponent(list(coef = coef, sigma = sigma, 
                                      df = df + ifelse(family == "gaussian", 1, 0)))
-      comp@parameters <- c(comp@parameters,
-                           model = list(m))
+      comp@parameters <- c(comp@parameters, model = list(m))
       comp
     }
     z
