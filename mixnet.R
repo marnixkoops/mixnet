@@ -48,5 +48,4 @@ mixnet <- function (formula = . ~ ., family = c("gaussian", "binomial", "poisson
     }
     z
   }
-  
   assignInNamespace("mixnet", mixnet, pos = "package:flexmix")
