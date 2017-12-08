@@ -1,3 +1,4 @@
+# Use by specifying 'model = mixnet' as argument in the flexmix framework
 mixnet <- function (formula = . ~ ., family = c("gaussian", "binomial", "poisson"), 
                     adaptive = TRUE, select = TRUE, offset = NULL, ...) 
   {
